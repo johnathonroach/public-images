@@ -36,11 +36,3 @@ jobs:
             ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: mshick/add-pr-comment@v1
-        with:
-          message: |
-            **Hello, I resized images for you!**:
-            ${{steps.csv-table-output.outputs.images_changed}}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: true
