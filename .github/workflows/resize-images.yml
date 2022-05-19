@@ -17,7 +17,7 @@ jobs:
 
       - name: Compress Images
         id: resize-images
-        uses: petems/img-resizer-inplace@master
+        uses: petems/image-resizer-gh-action@master
         with:
           target: public/home/ # directory to look for images in
           dimensions: 90% # parameter to change size
