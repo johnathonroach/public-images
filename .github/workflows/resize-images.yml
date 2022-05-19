@@ -1,18 +1,23 @@
 name: Resize images
+
 on:
   pull_request:
     paths:
-      - public/home/**
+      - 'public/home/**.jpg'
+      - 'public/home/**.jpeg'
+      - 'public/home/**.png'
+
 jobs:
   build:
     name: Image Resizer Inplace Limit
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@main
+        uses: actions/checkout@master
+
       - name: Compress Images
         id: resize-images
-        uses: petems/image-resizer-gh-action@master
+        uses: petems/img-resizer-inplace@master
         with:
           target: public/home/ # directory to look for images in
           dimensions: 90% # parameter to change size
@@ -20,8 +25,6 @@ jobs:
           heightLimit: 200 # max height to check
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           add: 'public/home/'
           author_name: "github-actions[bot]"
@@ -31,16 +34,13 @@ jobs:
             ```
             ${{steps.resize-images.outputs.images_changed}}
             ```
-      - name: Convert to Markdown Table
-        uses: petems/csv-to-md-table-action@master
-        id: csv-table-output
-        with:
-          csvinput: ${{steps.resize-images.outputs.csv_images_changed}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
             **Hello, I resized images for you!**:
-            ${{steps.csv-table-output.outputs.markdown-table}}
+            ${{steps.csv-table-output.outputs.images_changed}}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
           allow-repeats: true
