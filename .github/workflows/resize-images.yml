@@ -6,6 +6,7 @@ on:
       - 'public/home/**.jpg'
       - 'public/home/**.jpeg'
       - 'public/home/**.png'
+      - 'public/home/**.webp'
 jobs:
   build:
     name: Image Resizer Inplace Limit
@@ -13,11 +14,6 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@main
-
-      - name: Compress Images
-        uses: calibreapp/image-actions@main
-        with:
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Resize Images
         id: resize-images
@@ -27,7 +23,7 @@ jobs:
           dimensions: 300 # parameter to change size
           widthLimit: 500 # max width to check
           heightLimit: 800 # max height to check
-
+            
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
         with:
@@ -38,3 +34,17 @@ jobs:
             Images Resized
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            
+      - name: Convert to Markdown Table
+        uses: petems/csv-to-md-table-action@master
+        id: csv-table-output
+        with:
+          csvinput: ${{steps.resize-images.outputs.csv_images_changed}}
+      - uses: mshick/add-pr-comment@v1
+        with:
+          message: |
+            **Hello, I resized images for you!**:
+            ${{steps.csv-table-output.outputs.markdown-table}}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          allow-repeats: true
