@@ -34,6 +34,5 @@ jobs:
             ```
             ${{steps.resize-images.outputs.images_changed}}
             ```
-          github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
