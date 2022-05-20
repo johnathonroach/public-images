@@ -30,9 +30,7 @@ jobs:
           author_name: "github-actions[bot]"
           author_email: "github-actions@users.noreply.github.com"
           message: |
-            Images Reszied by Github action\n
-            ```
+            Images Resized<br />
             ${{steps.resize-images.outputs.images_changed}}
-            ```
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
