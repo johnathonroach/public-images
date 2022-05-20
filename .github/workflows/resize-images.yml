@@ -30,8 +30,7 @@ jobs:
           add: 'public/home/'
           author_name: "github-actions[bot]"
           author_email: "github-actions@users.noreply.github.com"
-          message: |
-            Images Resized
+          message: Images Resized
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
