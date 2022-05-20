@@ -12,8 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@master
-
+        uses: actions/checkout@main
       - name: Compress Images
         id: resize-images
         uses: petems/image-resizer-gh-action@master
@@ -34,4 +33,4 @@ jobs:
             ${{steps.resize-images.outputs.images_changed}}
             ```
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
