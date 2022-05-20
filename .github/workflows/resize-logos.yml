@@ -9,13 +9,13 @@ on:
       - 'public/home/**.webp'
 jobs:
   build:
-    name: Image Resizer Inplace Limit
+    name: Logo Resizer
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
         uses: actions/checkout@main
 
-      - name: Resize Images
+      - name: Resize Logos
         id: resize-images
         uses: petems/image-resizer-gh-action@master
         with:
@@ -30,7 +30,8 @@ jobs:
           add: 'public/home/'
           author_name: "github-actions[bot]"
           author_email: "github-actions@users.noreply.github.com"
-          message: Images Resized
+          message: |
+            Resize logos
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             
@@ -42,7 +43,7 @@ jobs:
       - uses: mshick/add-pr-comment@v1
         with:
           message: |
-            **Hello, I resized images for you!**:
+            **Hello, I resized logos for you!**:
             ${{steps.csv-table-output.outputs.markdown-table}}
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
