@@ -6,7 +6,6 @@ on:
       - 'public/home/**.jpg'
       - 'public/home/**.jpeg'
       - 'public/home/**.png'
-
 jobs:
   build:
     name: Image Resizer Inplace Limit
@@ -35,4 +34,4 @@ jobs:
             ${{steps.resize-images.outputs.images_changed}}
             ```
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
