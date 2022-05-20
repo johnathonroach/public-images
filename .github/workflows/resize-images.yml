@@ -12,8 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@${{ github.ref }}
-      - name: Compress Images
+        uses: actions/checkout@main
+
+      - name: Resize Images
         id: resize-images
         uses: petems/image-resizer-gh-action@master
         with:
@@ -21,6 +22,7 @@ jobs:
           dimensions: 300 # parameter to change size
           widthLimit: 500 # max width to check
           heightLimit: 800 # max height to check
+
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
         with:
@@ -32,5 +34,6 @@ jobs:
             ```
             ${{steps.resize-images.outputs.images_changed}}
             ```
+          github_token: ${{ secrets.GITHUB_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
