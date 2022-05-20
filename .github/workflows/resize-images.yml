@@ -20,9 +20,9 @@ jobs:
         uses: petems/image-resizer-gh-action@master
         with:
           target: public/home/ # directory to look for images in
-          dimensions: 90% # parameter to change size
-          widthLimit: 512 # max width to check
-          heightLimit: 200 # max height to check
+          dimensions: 300 # parameter to change size
+          widthLimit: 500 # max width to check
+          heightLimit: 800 # max height to check
       - name: Commit changes
         uses: EndBug/add-and-commit@v4
         with:
